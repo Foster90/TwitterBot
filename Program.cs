@@ -16,14 +16,20 @@ namespace TwitterBot
         private static string apisercetkey = ConfigurationManager.AppSettings.Get("apisercetkey");
         private static string accesstoken = ConfigurationManager.AppSettings.Get("accesstoken");
         private static string accesstokensecert = ConfigurationManager.AppSettings.Get("accesstokensecert");
-
+        static readonly Random rnd = new Random();
+     
+        
 
         private static TwitterService service = new TwitterService(apikey, apisercetkey, accesstoken, accesstokensecert); 
 
         static void Main(string[] args)
 
-
         {
+            DateTime timeNow = DateTime.Now;
+            DateTime timeWeek = DateTime.Now.AddMinutes(5);
+            DateTime randomdate = GetRandomDate(timeNow, timeWeek);
+
+
 
             Console.WriteLine($"<{DateTime.Now}> - Bot Started");
 
@@ -54,5 +60,15 @@ namespace TwitterBot
             });
 
         }
+        
+        public static DateTime GetRandomDate(DateTime from, DateTime to)
+        {
+            var range = to - from;
+
+            var randTimeSpan = new TimeSpan((long)(rnd.NextDouble() * range.Ticks));
+
+            return from + randTimeSpan;
+        }
+
     }
 }
