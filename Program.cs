@@ -18,7 +18,7 @@ namespace TwitterBot
         private static string accesstokensecert = ConfigurationManager.AppSettings.Get("accesstokensecert");
 
 
-        private static TwitterService service = new TwitterService(apikey, apisercetkey, accesstoken, accesstokensecert);
+        private static TwitterService service = new TwitterService(apikey, apisercetkey, accesstoken, accesstokensecert); 
 
         static void Main(string[] args)
 
@@ -27,7 +27,7 @@ namespace TwitterBot
 
             Console.WriteLine($"<{DateTime.Now}> - Bot Started");
 
-            SendTweet("Oh right. I see. I get it. You were lampooning me. It was a simple lampoon.");
+            SendTweet("Oh right. I see. I get it. You were lampooning me. It was a simple lampoon."); 
             Console.ReadLine();
 
         }
