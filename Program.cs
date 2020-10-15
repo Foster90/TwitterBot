@@ -27,7 +27,7 @@ namespace TwitterBot
 
             Console.WriteLine($"<{DateTime.Now}> - Bot Started");
 
-            SendTweet("Oh right. I see. I get it. You were lampooning me. It was a simple lampoon."); 
+            SendTweet("It's just a hairy turkey!"); 
             Console.ReadLine();
 
         }
