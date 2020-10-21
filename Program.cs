@@ -42,7 +42,7 @@ namespace TwitterBot
             {
 
                 DateTime timeNow = DateTime.Now;
-                DateTime timeWeek = DateTime.Now.AddMinutes(10);
+                DateTime timeWeek = DateTime.Now.AddMinutes(30);
                 DateTime randomdate = GetRandomDate(timeNow, timeWeek);
 
                 double inter = (randomdate - timeNow).TotalMilliseconds;
