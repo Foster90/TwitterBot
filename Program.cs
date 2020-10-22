@@ -33,36 +33,42 @@ namespace TwitterBot
         static void Main(string[] args)
 
         {
+            Console.WriteLine("Would you like to start your tweets running?");
+            string userResponse = Console.ReadLine();
 
-            string json = File.ReadAllText("../../datafile.json");
-            qlist = JsonConvert.DeserializeObject<List<Quote>>(json);
-            string list = qlist[quotecount].qutoe;
-
-            while (listempty == false)
+            if (userResponse == "Y")
             {
+                string json = File.ReadAllText("../../datafile.json");
+                qlist = JsonConvert.DeserializeObject<List<Quote>>(json);
+                string list = qlist[quotecount].qutoe;
 
-                DateTime timeNow = DateTime.Now;
-                DateTime timeWeek = DateTime.Now.AddMinutes(30);
-                DateTime randomdate = GetRandomDate(timeNow, timeWeek);
+                while (listempty == false)
+                {
 
-                double inter = (randomdate - timeNow).TotalMilliseconds;
+                    DateTime timeNow = DateTime.Now;
+                    DateTime timeWeek = DateTime.Now.AddMinutes(30);
+                    DateTime randomdate = GetRandomDate(timeNow, timeWeek);
+                    double inter = (randomdate - timeNow).TotalMilliseconds;
 
-                Console.WriteLine($"<{DateTime.Now}> - Bot Started");
-                Console.WriteLine(timeNow);
-                Console.WriteLine(timeWeek);
-                Console.WriteLine(randomdate);
+                    Console.WriteLine($"<{DateTime.Now}> - Bot Started");
+                    Console.WriteLine(timeNow);
+                    Console.WriteLine(timeWeek);
+                    Console.WriteLine(randomdate);
 
-                SetTimer(inter, list);
-                mre.Reset();
+                    SetTimer(inter, list);
+                    mre.Reset();
 
-           
 
-               
-                Console.ReadLine();
-
-                aTimer.Stop();
-                aTimer.Dispose();
+                    aTimer.Stop();
+                    aTimer.Dispose();
+                }
             }
+            else
+            {
+                Console.WriteLine("Comeback when you fancy tweeting");
+
+            }
+
         }
 
         private static void SendTweet(string _status)
@@ -114,13 +120,12 @@ namespace TwitterBot
 
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}",
-                               e.SignalTime);
             string quote = GetQuote(quotecount);
 
-            Console.WriteLine("{0}", quote);
+            Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}",e.SignalTime);
+            Console.WriteLine("{0}", quote);                    
+            
             SendTweet(quote);
-
             
             mre.Set();
             quotecount++;
