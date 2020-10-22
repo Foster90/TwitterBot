@@ -26,6 +26,7 @@ namespace TwitterBot
         public static List<Quote> qlist = new List<Quote>();
         public static int quotecount;
         public static bool listempty = false;
+        public static bool stillinmenu = true;
 
 
         private static TwitterService service = new TwitterService(apikey, apisercetkey, accesstoken, accesstokensecert); 
@@ -33,41 +34,97 @@ namespace TwitterBot
         static void Main(string[] args)
 
         {
-            Console.WriteLine("Would you like to start your tweets running?");
-            string userResponse = Console.ReadLine();
-
-            if (userResponse == "Y")
+            while (stillinmenu == true)
             {
-                string json = File.ReadAllText("../../datafile.json");
-                qlist = JsonConvert.DeserializeObject<List<Quote>>(json);
-                string list = qlist[quotecount].qutoe;
 
-                while (listempty == false)
+                Console.WriteLine();
+                string title = "~~~~TwitterBot~~~~";
+                Console.SetCursorPosition((Console.WindowWidth - title.Length) / 2, Console.CursorTop);
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~");
+                Console.SetCursorPosition((Console.WindowWidth - title.Length) / 2, Console.CursorTop);
+                Console.WriteLine(title);
+                Console.SetCursorPosition((Console.WindowWidth - title.Length) / 2, Console.CursorTop);
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~");
+
+                Console.WriteLine("Please select:");
+                Console.WriteLine();
+                Console.WriteLine("A: Send standard tweet");
+                Console.WriteLine();
+                Console.WriteLine("B: Read tweets from default JSON file on time delay");
+                Console.WriteLine();
+                Console.WriteLine("C: Read tweets from input file path JSON file");
+                Console.WriteLine();
+                Console.WriteLine("Q: Quit");
+
+
+                string userResponse = Console.ReadLine();
+
+                switch (userResponse)
                 {
 
-                    DateTime timeNow = DateTime.Now;
-                    DateTime timeWeek = DateTime.Now.AddMinutes(30);
-                    DateTime randomdate = GetRandomDate(timeNow, timeWeek);
-                    double inter = (randomdate - timeNow).TotalMilliseconds;
+                    case "A":
+                        Console.Clear();
+                        Console.WriteLine("Please write your tweet (No more that 280 characters)");
+                        string usertweet = Console.ReadLine();
 
-                    Console.WriteLine($"<{DateTime.Now}> - Bot Started");
-                    Console.WriteLine(timeNow);
-                    Console.WriteLine(timeWeek);
-                    Console.WriteLine(randomdate);
+                        if (usertweet.Length <= 280)
+                        {
+                            SendTweet(usertweet);
+                            Console.WriteLine("Tweet Send!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Tweet is to long");
+                        }
 
-                    SetTimer(inter, list);
-                    mre.Reset();
+
+                        break;
+
+                    case "B":
+
+                        string json = File.ReadAllText("../../datafile.json");
+                        qlist = JsonConvert.DeserializeObject<List<Quote>>(json);
+                        string list = qlist[quotecount].qutoe;
+
+                        while (listempty == false)
+                        {
+
+                            DateTime timeNow = DateTime.Now;
+                            DateTime timeWeek = DateTime.Now.AddMinutes(30);
+                            DateTime randomdate = GetRandomDate(timeNow, timeWeek);
+                            double inter = (randomdate - timeNow).TotalMilliseconds;
+
+                            Console.WriteLine($"<{DateTime.Now}> - Bot Started");
+                            Console.WriteLine(timeNow);
+                            Console.WriteLine(timeWeek);
+                            Console.WriteLine(randomdate);
+
+                            SetTimer(inter, list);
+                            mre.Reset();
 
 
-                    aTimer.Stop();
-                    aTimer.Dispose();
+                            aTimer.Stop();
+                            aTimer.Dispose();
+                        }
+                        break;
+
+
+                    case "C":
+                        break;
+
+
+                    case "Q":
+                        stillinmenu = false;
+                        Console.WriteLine("Comeback when you fancy tweeting");
+                        break;
+
+                    default:
+                        break;
+
                 }
             }
-            else
-            {
-                Console.WriteLine("Comeback when you fancy tweeting");
-
-            }
+           
+           
 
         }
 
