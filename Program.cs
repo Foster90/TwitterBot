@@ -54,6 +54,8 @@ namespace TwitterBot
                 Console.WriteLine();
                 Console.WriteLine("C: Read tweets from input file path JSON file");
                 Console.WriteLine();
+                Console.WriteLine("D: Read from Database");
+                Console.WriteLine();
                 Console.WriteLine("Q: Quit");
 
 
@@ -81,7 +83,6 @@ namespace TwitterBot
                         break;
 
                     case "B":
-
                         string json = File.ReadAllText("../../datafile.json");
                         qlist = JsonConvert.DeserializeObject<List<Quote>>(json);
                         string list = qlist[quotecount].qutoe;
