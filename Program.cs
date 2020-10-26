@@ -111,6 +111,45 @@ namespace TwitterBot
 
 
                     case "C":
+                        Console.Clear();
+                        Console.WriteLine("Please write your file path");
+                        string userfilepath = Console.ReadLine();
+                        string userfilejson;
+                        try
+                        {
+                            userfilejson = File.ReadAllText(userfilepath);
+                        }
+                        catch (FileNotFoundException e)
+                        {
+                            Console.WriteLine("Invaild Path", e);
+
+                            break;
+                        }                                                                   
+
+
+                        qlist = JsonConvert.DeserializeObject<List<Quote>>(userfilejson);
+                        string userfilelist = qlist[quotecount].qutoe;
+
+                        while (listempty == false)
+                        {
+
+                            DateTime timeNow = DateTime.Now;
+                            DateTime timeWeek = DateTime.Now.AddMinutes(30);
+                            DateTime randomdate = GetRandomDate(timeNow, timeWeek);
+                            double inter = (randomdate - timeNow).TotalMilliseconds;
+
+                            Console.WriteLine($"<{DateTime.Now}> - Bot Started");
+                            Console.WriteLine(timeNow);
+                            Console.WriteLine(timeWeek);
+                            Console.WriteLine(randomdate);
+
+                            SetTimer(inter, userfilelist);
+                            mre.Reset();
+
+
+                            aTimer.Stop();
+                            aTimer.Dispose();
+                        }
                         break;
 
 
