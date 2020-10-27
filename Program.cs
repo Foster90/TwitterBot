@@ -152,6 +152,27 @@ namespace TwitterBot
                         }
                         break;
 
+                    case "E":
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Please enter user screen name");
+                            string twitteruser = Console.ReadLine();
+
+
+                            ListTweetsOnUserTimelineOptions listTweetsOnListOptions = new ListTweetsOnUserTimelineOptions();
+                            listTweetsOnListOptions.ScreenName = twitteruser;
+
+                            var tweets = service.ListTweetsOnUserTimeline(listTweetsOnListOptions);
+
+                            foreach (TwitterStatus t in tweets)
+                            {
+                                Console.WriteLine(t.Text);
+
+                            }
+
+                            break;
+                        }
+
 
                     case "Q":
                         stillinmenu = false;
