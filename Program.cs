@@ -37,8 +37,6 @@ namespace TwitterBot
             while (stillinmenu == true)
             {
 
-                
-
                 Console.WriteLine();
                 string title = "~~~~TwitterBot~~~~";
                 Console.SetCursorPosition((Console.WindowWidth - title.Length) / 2, Console.CursorTop);
@@ -58,8 +56,6 @@ namespace TwitterBot
                 Console.WriteLine();
                 Console.WriteLine("D: Read from Database");
                 Console.WriteLine();
-                Console.WriteLine("E: My most recent tweets");
-                Console.WriteLine();         
                 Console.WriteLine("Q: Quit");
 
 
@@ -155,24 +151,6 @@ namespace TwitterBot
                             aTimer.Dispose();
                         }
                         break;
-
-                    case "E":
-                        {
-
-                            ListTweetsOnUserTimelineOptions listTweetsOnListOptions = new ListTweetsOnUserTimelineOptions();
-
-                            listTweetsOnListOptions.ScreenName = "Andy Bobolyne";
-
-                            var tweets = service.ListTweetsOnUserTimeline(listTweetsOnListOptions);
-
-                            foreach (TwitterStatus t in tweets)
-                            {
-                                Console.WriteLine(t.Text);
-
-                            }
-
-                            break;
-                        }
 
 
                     case "Q":
