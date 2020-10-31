@@ -54,7 +54,7 @@ namespace TwitterBot
                 Console.WriteLine();
                 Console.WriteLine("C: Read tweets from input file path JSON file");
                 Console.WriteLine();
-                Console.WriteLine("D: Read from Database");
+                Console.WriteLine("D: Get user tweets");
                 Console.WriteLine();
                 Console.WriteLine("Q: Quit");
 
@@ -152,7 +152,7 @@ namespace TwitterBot
                         }
                         break;
 
-                    case "E":
+                    case "D":
                         {
                             Console.Clear();
                             Console.WriteLine("Please enter user screen name");
