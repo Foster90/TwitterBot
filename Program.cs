@@ -56,6 +56,8 @@ namespace TwitterBot
                 Console.WriteLine();
                 Console.WriteLine("D: Get user tweets");
                 Console.WriteLine();
+                Console.WriteLine("E: Settings");
+                Console.WriteLine();
                 Console.WriteLine("Q: Quit");
 
 
@@ -172,6 +174,10 @@ namespace TwitterBot
 
                             break;
                         }
+
+                    case "E":
+
+                        break;
 
 
                     case "Q":
